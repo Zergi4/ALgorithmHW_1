@@ -1,34 +1,110 @@
 package org.example;
 
-public class StringListImpl implements StringList{
+import org.example.Exception.InvalidIndexException;
+import org.example.Exception.NotExistException;
 
-    private String[] strings = new String[0];
-    @Override
+import java.util.Arrays;
+
+public class StringListImpl/* implements StringList*/ {
+
+    private String[] strings;
+
+    public StringListImpl() {
+        strings = new String[0];
+    }
+
+    public StringListImpl(int size) {
+        strings = new String[size];
+    }
+
+    /*
+        @Override
+    */
     public String add(String item) {
-        return null;
+        String[] array = new String[strings.length + 1];
+        System.arraycopy(strings, 0, array, 0, strings.length);
+        array[strings.length] = item;
+        strings = array;
+        return item;
     }
 
-    @Override
+    // @/*Override*/
     public String add(int index, String item) {
-        return null;
+        if (index > strings.length || index < 0) {
+            throw new InvalidIndexException();
+        }
+        String[] srcArray = strings;
+        String[] destArray = new String[srcArray.length + 1];
+        int j = 0;
+        for (int i = 0; i < destArray.length; i++) {
+
+            if (i == index) {
+                destArray[i] = item;
+            } else {
+                destArray[i] = srcArray[j];
+                j++;
+            }
+        }
+        strings = destArray;
+        return item;
     }
 
-    @Override
+
+    /*    @Override*/
     public String set(int index, String item) {
-        return null;
+        if (index > strings.length || index < 0) {
+            throw new InvalidIndexException();
+        }
+        String[] srcArray = strings;
+        String[] destArray = new String[srcArray.length];
+
+        for (int i = 0; i < destArray.length; i++) {
+
+            if (i == index) {
+                destArray[i] = item;
+
+            } else {
+                destArray[i] = srcArray[i];
+            }
+        }
+        strings = destArray;
+        return item;
     }
 
-    @Override
+    /*   @Override*/
     public String remove(String item) {
-        return null;
+//проверка на наличие элемента
+        boolean notExist = true;
+        for (int i = 0; i < strings.length; i++) {
+            if (strings[i].equals(item)) {
+                notExist= false;
+            } else if(notExist) throw new NotExistException();
+        }
+        //
+        String[] destArray = Arrays.stream(strings)
+                .filter(s -> !s.equals(item))
+                .toArray(String[]::new);
+
+        strings = destArray;
+        return item;
     }
 
-    @Override
+    /*@Override*/
     public String remove(int index) {
-        return null;
+        String result = strings[index];
+        String[] destArray = new String[strings.length - 1];
+        for (int i = 0;(i < index); i++) {
+            destArray[i] = strings[i];
+        }
+
+        for (int i = index; i < destArray.length; i++) {
+            destArray[i] = strings[i + 1];
+        }
+        strings = destArray;
+        return result;
     }
 
-    @Override
+  /*   @Override
     public boolean contains(String item) {
         return false;
     }
@@ -71,5 +147,12 @@ public class StringListImpl implements StringList{
     @Override
     public String[] toArray() {
         return new String[0];
+    }*/
+
+    @Override
+    public String toString() {
+        return "StringListImpl{" +
+                "strings=" + Arrays.toString(strings) +
+                '}';
     }
 }
