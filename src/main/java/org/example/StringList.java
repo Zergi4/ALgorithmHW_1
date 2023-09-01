@@ -25,6 +25,8 @@ public interface StringList {
     // или выходит за пределы массива.
     String set(int index, String item);
 
+    void checkIndex(int index);
+
     // Удаление элемента.
     // Вернуть удаленный элемент
     // или исключение, если подобный
