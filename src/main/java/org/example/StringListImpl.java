@@ -163,6 +163,7 @@ public class StringListImpl implements StringList {
     public String get(int index) {
         checkIndex(index);
         return strings[index];
+
     }
 
     @Override
