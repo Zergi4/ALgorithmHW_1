@@ -3,7 +3,7 @@ package org.example;
 public class Main {
     public static void main(String[] args) {
 
-        StringListImpl strings = new StringListImpl(0);
+  /*      StringListImpl strings = new StringListImpl(0);
         System.out.println(strings.toString());
         strings.add("Hello");
         strings.add("Hello");
@@ -12,10 +12,10 @@ public class Main {
         strings.add(1, "bye");
         System.out.println(strings.toString());
         strings.set(2, "set");
-      /*  System.out.println(strings.toString());
+      *//*  System.out.println(strings.toString());
        strings.remove("Hello");
         System.out.println(strings.toString());
-        strings.remove(0);*/
+        strings.remove(0);*//*
         System.out.println(strings.toString());
         System.out.println(strings.contains("bye"));
         System.out.println(strings.indexOf("Hello"));
@@ -23,8 +23,15 @@ public class Main {
         System.out.println(strings.size());
         System.out.println(strings.isEmpty());
         strings.clear();
-        System.out.println(strings.toString());
+        System.out.println(strings.toString());*/
 
+        StringListImpl stringList = new StringListImpl(4);
+        stringList.add("Hello");
+        System.out.println(stringList.toString());
+        stringList.add("World");
+        stringList.add("Bye");
+        stringList.add("Set");
+        System.out.println(stringList.toString());
 
 
     }
