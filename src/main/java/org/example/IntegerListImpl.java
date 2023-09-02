@@ -6,22 +6,22 @@ import org.example.Exception.NotExistException;
 import java.util.Arrays;
 import java.util.Objects;
 
-public class StringListImpl implements StringList {
+public class IntegerListImpl implements IntegerList {
 
 
-    private String[] storage;
+    private Integer[] storage;
     private int size = 0;
 
-    public StringListImpl() {
-        storage = new String[10];
+    public IntegerListImpl() {
+        storage = new Integer[5];
     }
 
-    public StringListImpl(int size) {
-        storage = new String[size];
+    public IntegerListImpl(int size) {
+        storage = new Integer[size];
     }
 
     @Override
-    public String add(String item) {
+    public Integer add(Integer item) {
 
         checkItem(item);
         checkSize();
@@ -31,7 +31,7 @@ public class StringListImpl implements StringList {
     }
 
     @Override
-    public String add(int index, String item) {
+    public Integer add(int index, Integer item) {
         checkSize();
         checkItem(item);
         if (index == size) {
@@ -47,7 +47,7 @@ public class StringListImpl implements StringList {
     }
 
     @Override
-    public String set(int index, String item) {
+    public Integer set(int index, Integer item) {
         checkIndex(index);
         checkItem(item);
         storage[index] = item;
@@ -60,7 +60,7 @@ public class StringListImpl implements StringList {
     }
 
     @Override
-    public String remove(String item) {
+    public Integer remove(Integer item) {
         checkItem(item);
         if (contains(item)) {
             return remove(indexOf(item));
@@ -69,9 +69,9 @@ public class StringListImpl implements StringList {
     }
 
     @Override
-    public String remove(int index) {
+    public Integer remove(int index) {
         checkIndex(index);
-        String result = storage[index];
+        Integer result = storage[index];
         for (int i = index; i < size - 1; i++) {
             storage[i] = storage[i + 1];
         }
@@ -80,13 +80,13 @@ public class StringListImpl implements StringList {
     }
 
     @Override
-    public boolean contains(String item) {
+    public boolean contains(Integer item) {
         checkItem(item);
         return indexOf(item) != -1;
     }
 
     @Override
-    public int indexOf(String item) {
+    public int indexOf(Integer item) {
         checkItem(item);
         for (int i = 0; i < size; i++) {
             if (storage[i].equals(item)) {
@@ -97,7 +97,7 @@ public class StringListImpl implements StringList {
     }
 
     @Override
-    public int lastIndexOf(String item) {
+    public int lastIndexOf(Integer item) {
         checkItem(item);
         for (int i = size - 1; i >= 0; i--) {
             if (storage[i].equals(item)) {
@@ -108,13 +108,14 @@ public class StringListImpl implements StringList {
     }
 
     @Override
-    public String get(int index) {
+    public Integer get(int index) {
         checkIndex(index);
         return storage[index];
     }
 
+
     @Override
-    public boolean equals(StringList otherList) {
+    public boolean equals(IntegerList otherList) {
         return Arrays.equals(this.toArray(), otherList.toArray());
     }
 
@@ -134,11 +135,11 @@ public class StringListImpl implements StringList {
     }
 
     @Override
-    public String[] toArray() {
+    public Integer[] toArray() {
         return Arrays.copyOf(storage, size);
     }
 
-    private void checkItem(String item) {
+    private void checkItem(Integer item) {
         if (Objects.isNull(item)) {
             throw new InvalidItemException();
         }
@@ -148,12 +149,50 @@ public class StringListImpl implements StringList {
         if (size == storage.length) {
             storage = Arrays.copyOf(storage, (int) (size * 1.5 + 1));
         }
+    }
 
+
+    private static void swapElements(int[] arr, int indexA, int indexB) {
+        int tmp = arr[indexA];
+        arr[indexA] = arr[indexB];
+        arr[indexB] = tmp;
+    }
+
+    public static void sortInsertion(int[] arr) {
+        for (int i = 1; i < arr.length; i++) {
+            int temp = arr[i];
+            int j = i;
+            while (j > 0 && arr[j - 1] >= temp) {
+                arr[j] = arr[j - 1];
+                j--;
+            }
+            arr[j] = temp;
+        }
+    }
+
+    public static boolean binarySearch(int[] arr, int element) {
+        sortInsertion(arr);
+        int min = 0;
+        int max = arr.length - 1;
+        while (min <= max) {
+            int mid = (min + max) / 2;
+
+
+            if (element == arr[mid]) {
+                return true;
+            }
+            if (element < arr[mid]) {
+                max = mid - 1;
+            } else {
+                min = mid + 1;
+            }
+        }
+        return false;
     }
 
     @Override
     public String toString() {
-        return "StringListImpl{" +
+        return "IntegerListImpl{" +
                 "storage=" + Arrays.toString(storage) +
                 ", size=" + size +
                 '}';
