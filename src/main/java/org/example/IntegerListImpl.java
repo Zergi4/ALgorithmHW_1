@@ -1,5 +1,6 @@
 package org.example;
 
+import org.example.Exception.InvalidIndexException;
 import org.example.Exception.InvalidItemException;
 import org.example.Exception.NotExistException;
 
@@ -33,11 +34,12 @@ public class IntegerListImpl implements IntegerList {
     @Override
     public Integer add(int index, Integer item) {
         checkSize();
+        checkIndex(index);
         checkItem(item);
         if (index == size) {
             add(item);
         }
-        checkIndex(index);
+
         size++;
         for (int i = size - 1; i > index; i--) {
             storage[i] = storage[i - 1];
@@ -56,7 +58,9 @@ public class IntegerListImpl implements IntegerList {
 
     @Override
     public void checkIndex(int index) {
-
+        if (index < 0 || index >= size) {
+            throw new InvalidIndexException();
+        }
     }
 
     @Override
