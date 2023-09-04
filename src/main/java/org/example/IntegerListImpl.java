@@ -86,7 +86,7 @@ public class IntegerListImpl implements IntegerList {
     @Override
     public boolean contains(Integer item) {
         Integer[] storageCopy = toArray();
-        quickSort(storageCopy,0,storageCopy.length);
+        quickSort(storageCopy,0,storageCopy.length-1);
         return binarySearch(storageCopy, item);
 
     }
