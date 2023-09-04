@@ -157,7 +157,7 @@ public class IntegerListImpl implements IntegerList {
         }
     }
 private void grow() {
-    storage = Arrays.copyOf(storage, (int) (size * 1.5 + 1));
+    storage = Arrays.copyOf(storage, (int) (1.5*size));
 
 }
 
